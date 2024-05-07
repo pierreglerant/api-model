@@ -9,8 +9,13 @@ app = FastAPI()
 @app.post("/titanic")
 def prediction_api(pclass: int, sex: int, age: int) -> bool:
     # Load model
+    titanic_model = joblib.load("model_titanic.joblib")
+
     # predict
-    return True
+    x = [pclass, sex, age]
+    prediction = titanic_model.predict(pd.DataFrame(x).transpose())
+
+    return prediction[0] == 1
 
 
 if __name__ == "__main__":
