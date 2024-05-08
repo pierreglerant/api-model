@@ -1,22 +1,25 @@
-name: ML Model Deployement
+name: ML Model Deployment
 
 on: [push]
 
 jobs:
   deploy:
-    runs-out: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository
-    - uses: actions/setup-python@v4
-      with:
-      python-version: 3.11
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: pip install -r requirements.tst
-    
-    - name: Test with pytest
-      run: pytest
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
 
-    - name: Train and evaluate model
-      run: python train/train.py
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test with pytest
+        run: pytest
+
+      - name: Train and evaluate model
+        run: python train/train.py
